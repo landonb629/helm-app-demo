@@ -1,0 +1,9 @@
+dependencies:
+- name: product-service
+  repository: file://./charts/product-service/
+  version: 0.1.0
+- name: ui
+  repository: file://./charts/ui/
+  version: 0.1.0
+digest: sha256:8ed58bc30b9c3e20503b0dfa62484a6856f1f87733caf88aac2e82354ae23462
+generated: "2024-11-07T00:14:16.363365-05:00"
