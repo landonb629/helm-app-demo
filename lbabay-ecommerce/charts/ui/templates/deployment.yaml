@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+  labels:
+    app.kubernetes.io/environment: {{ .Values.environment }}
+    app.kubernetes.io/name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ui-selector-labels" . | indent 2 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ui-selector-labels" . | indent 4 }}
+    spec:
+      containers:
+        - name: "{{ .Release.Name}}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+          image: "{{ .Values.image.repositoryName }}:{{.Values.image.tag}}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
