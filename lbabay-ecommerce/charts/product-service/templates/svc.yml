@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}-svc"
   labels:
-    {{- include "ui-selector-labels" . | indent 2 }}
+    {{- include "default-selector-labels" . | indent 2 }}
 spec:
   selector:
-    {{- include "ui-selector-labels" . | indent 2 }}
+    {{- include "default-selector-labels" . | indent 2 }}
   type: LoadBalancer
   ports:
     - protocol: TCP

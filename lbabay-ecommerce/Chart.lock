@@ -5,5 +5,14 @@ dependencies:
 - name: ui
   repository: file://./charts/ui/
   version: 0.1.0
-digest: sha256:8ed58bc30b9c3e20503b0dfa62484a6856f1f87733caf88aac2e82354ae23462
-generated: "2024-11-07T00:14:16.363365-05:00"
+- name: cart-service
+  repository: file://./charts/cart-service/
+  version: 0.1.0
+- name: auth-service
+  repository: file://./charts/auth-service/
+  version: 0.1.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.3.0
+digest: sha256:3fee353201dace14a96316a9448381a1d84608e4e921431fe0323ba8c6eddb03
+generated: "2024-11-20T10:54:47.809138-05:00"

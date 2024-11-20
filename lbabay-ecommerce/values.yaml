@@ -1,2 +1,3 @@
 ui:
-  environment: production
+  environment: development
+  replicaCount: 2

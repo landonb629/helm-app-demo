@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+  labels:
+    app.kubernetes.io/environment: {{ .Values.environment }}
+    app.kubernetes.io/name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "default-selector-labels" . | indent 4 }}
+  template:
+    metadata:
+      labels:
+        {{- include "default-selector-labels" . | indent 6 }}
+    spec:
+      containers:
+        - name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}"
+          image: "{{ .Values.image.repositoryName}}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          {{- if eq .Values.environment "development" }}
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ .Release.Name}}-{{ .Values.appComponent }}-{{ .Values.environment}}-configuration"
+                  key: MONGO_USERNAME
+            - name: MONGO_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ .Release.Name}}-{{ .Values.appComponent }}-{{ .Values.environment}}-configuration"
+                  key: MONGO_PASSWORD
+          {{- end}}
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}

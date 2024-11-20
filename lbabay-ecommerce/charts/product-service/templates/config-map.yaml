@@ -1,0 +1,9 @@
+{{- if eq .Values.environment "development" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.appComponent }}-{{ .Values.environment }}-configuration"
+data:
+  MONGO_USERNAME: {{ .Values.mongoUsername }}
+  MONGO_PASSWORD: {{ .Values.mongoPassword }}
+{{- end}}

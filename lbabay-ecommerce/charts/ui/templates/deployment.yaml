@@ -9,11 +9,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "ui-selector-labels" . | indent 2 }}
+      {{- include "ui-selector-labels" . | indent 4 }}
   template:
     metadata:
       labels:
-        {{- include "ui-selector-labels" . | indent 4 }}
+        {{- include "ui-selector-labels" . | indent 6 }}
     spec:
       containers:
         - name: "{{ .Release.Name}}-{{ .Values.appComponent }}-{{ .Values.environment }}"
