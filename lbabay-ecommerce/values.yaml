@@ -1,3 +1,14 @@
 ui:
   environment: development
   replicaCount: 2
+
+
+# mongodb configuration
+mongodb:
+  image:
+    tag: latest
+    repository: mongo
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
